@@ -1,0 +1,273 @@
+/* ===== RESET (à mettre en haut du CSS) ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.cadre {
+    /* Cadre fleuri desactive pour l'instant — reactiver ces 2 lignes pour le remettre
+       (la bordure de 80px reprendra 160px de largeur au contenu) :
+    border: 80px solid transparent;
+    border-image: url('images/cadre-fleuri1.png') 200 round; */
+    border: none;
+    padding: 10px;
+    margin: 20px;
+}
+/* ===================================================================
+   LOT 4 — MISE EN PAGE DU FORMULAIRE
+   =================================================================== */
+/*Polices*/
+@font-face {
+  font-family: 'CaviarDreams';
+  src: url('./fonts/CaviarDreams.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'iloveyou';
+  src: url('./fonts/iloveyou.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'CaviarDreams';
+  text-align: justify;
+}
+header {
+  text-align: center;
+  font-family: 'iloveyou';
+  font-size: 2.2em;
+}
+h1 {
+  text-align: center;
+  line-height: 1.2; /* réduit l'espace entre les lignes */
+}
+/* Police des questions */
+.question-label {
+  font-family: 'Georgia', serif;
+}
+#form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* --- Sections générales (.cadre sert déjà de conteneur visuel) --- */
+.cadre h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* --- Fiche personne --- */
+.fiche-personne {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #d8c9b8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.fiche-numero {
+  display: block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.btn-supprimer {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #a33;
+}
+
+/* --- Champs de formulaire --- */
+.champ {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.champ label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.champ input,
+.champ select,
+.champ textarea {
+  padding: 8px 10px;
+  border: 1px solid #c9b8a8;
+  border-radius: 4px;
+  font-family: inherit ;
+  font-size: 1rem;
+  background: #fff;
+}
+
+/* --- Blocs conditionnels (repas / logement) --- */
+.conditionnel {
+  border-left: 3px solid #d8b878;
+  padding-left: 15px;
+  margin-top: 10px;
+}
+
+/* --- Bouton ajouter une personne --- */
+#btn-ajouter {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 12px 24px;
+  background: #6b4f3b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  position: relative; 
+  z-index: 10;   
+}
+
+#btn-ajouter:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.guide-personnage {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+/* Cales contre le formulaire : 15px entre le personnage et le bord du cadre.
+   545px = 380 (demi-largeur du cadre) + 15 (ecart) + 150 (largeur du personnage) */
+#guide-pere { left:  calc(50% - 545px); }
+#guide-mere { right: calc(50% - 545px); }
+/* Enfants : empilés sous le père et la mère */
+#guide-fils  { left: calc(50% - 545px); }
+#guide-fille { right:calc(50% - 545px); }
+
+/* Décalage vertical : moitié de la hauteur du parent + un écart */
+.guide-enfant {
+  transform: translateY(calc(-50% + 200px));
+}
+.ligne-desktop { display: inline; }
+.ligne-mobile { display: none; }
+
+@media (max-width: 640px) {
+  .ligne-desktop { display: none; }
+  .ligne-mobile { display: inline; }
+}
+@media (max-width: 1180px) { 
+  /* Tous les guides : fixés au centre vertical de l'écran, côte à côte */
+  .guide-personnage {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    z-index: 5;              /* derrière le formulaire */
+    opacity: 0.6;            /* discret en arrière-plan */
+    pointer-events: none;    /* les clics passent à travers */
+  }
+
+  /* Répartition horizontale autour du centre de l'écran.
+     70px de large + 10px d'écart => pas de 80px par personnage */
+  #guide-pere  { left: calc(50% - 200px); }
+  #guide-mere  { right: calc(50% - 200px);  }
+  #guide-fils  { left: calc(50% - 200px); top: calc(50% + 180px); }
+  #guide-fille { right: calc(50% - 200px);top: calc(50% + 180px);}
+
+  /* Le formulaire passe au-dessus */
+  .container {
+    position: relative;
+    z-index: 10;
+  }
+ 
+}
+/* --- Bouton d'envoi --- */
+#rsvp-form button[type="submit"] {
+  display: block;
+  margin: 30px auto 0;
+  padding: 14px 30px;
+  background: #3b6b4f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* --- Fond animé : décor non interactif derrière le contenu --- */
+#fond-anime {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: transparent;
+}
+
+#intro-screen,
+#form-container,
+#end-screen {
+  text-align: center;
+}
+
+#end-screen h2,
+#end-screen p {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.fond-anime-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  user-select: none;
+  will-change: transform, opacity;
+  animation: fond-anime-fall var(--fall-duration, 8s) linear forwards;
+}
+
+@keyframes fond-anime-fall {
+  from {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  to {
+    transform: translate3d(0, 110vh, 0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  #fond-anime { opacity: 0.55; }
+  .fond-anime-element { animation-duration: 9s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #fond-anime { display: none; }
+}
+#img-fin {
+  max-width: 600px;   /* ajuste selon ton besoin */
+  width: 80%;         /* pour que ça reste responsive sur mobile */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
