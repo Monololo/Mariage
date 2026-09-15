@@ -36,19 +36,29 @@
   font-style: normal;
   font-display: swap;
 }
-
+#bloc-commentaire textarea {
+  width: 100%;
+  font-family: 'CaviarDreams';
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  padding: 0.6em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
 body {
   font-family: 'CaviarDreams';
   text-align: justify;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
 }
 header {
   text-align: center;
   font-family: 'iloveyou';
-  font-size: 2.2em;
+  font-size: clamp(1.5rem, 4.5vw, 2.8rem);
 }
 h1 {
   text-align: center;
   line-height: 1.2; /* réduit l'espace entre les lignes */
+  font-size: clamp(3rem, 9vw, 3.5rem);
 }
 /* Police des questions */
 .question-label {
@@ -62,9 +72,9 @@ h1 {
 
 /* --- Sections générales (.cadre sert déjà de conteneur visuel) --- */
 .cadre h2 {
-  font-size: 1.8rem;
+  font-size: clamp(2rem, 6vw, 2.6rem);
   margin-bottom: 20px;
-  text-align: center;
+  text-shadow: 0.5px 0.5px 0 rgba(0,0,0,0.2);
 }
 
 /* --- Fiche personne --- */
@@ -114,7 +124,7 @@ h1 {
   border: 1px solid #c9b8a8;
   border-radius: 4px;
   font-family: inherit ;
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
   background: #fff;
 }
 

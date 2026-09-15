@@ -147,10 +147,8 @@
        <input type="text" id="p1_chanson2" name="p1_chanson2" placeholder="Titre — Artiste">
      </div>
     </div>
-           <div class="zone-gif"></div>
- </div>
-          <div class="zone-gif"></div>
-        </div>
+  </div>
+</div>
         <!-- ===== FIN FICHE 1 ===== -->
 
         <!-- Les fiches 2 à 8 sont clonées en JS depuis la fiche 1 [LOT 1] -->
@@ -159,7 +157,18 @@
 
       <button type="button" id="btn-ajouter">+ Ajouter une personne</button>
     </section>
-
+    <!-- ---------- BLOC COMMENTAIRE ---------- -->
+    <section class="cadre" id="bloc-commentaire">
+      <h2>Un petit mot pour nous ?</h2>
+      <p class="intro-bloc">
+        Une question, un message pour nous c'est le moment !
+      </p>
+      <div class="champ">
+        <label for="commentaire">Votre commentaire</label>
+        <textarea id="commentaire" name="commentaire" rows="4"
+                  placeholder="Écrivez ici…"></textarea>
+      </div>
+    </section>
 <!-- ---------- ENVOI ---------- -->
     <div class="zone-envoi">
       <button type="submit" id="btn-envoyer">Envoyer notre réponse</button>

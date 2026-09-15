@@ -1,4 +1,9 @@
+// Récupère la version dans l'URL
+const urlParams = new URLSearchParams(window.location.search);
+const version = urlParams.get('v') || 'a'; // 'a' par défaut
 
+// Ajoute la version au formulaire
+document.body.setAttribute('data-version', version);
 // ===================================================================
 // ===== LOT 1 — MOTEUR DU FORMULAIRE (version clonage) ==============
 // ===================================================================
@@ -39,16 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // --- Filtrage des options selon la version -----------------------
-  function filtrerPresence(fiche) {
-    const select = fiche.querySelector('.select-presence');
-  if (select) {
-    select.addEventListener('change', function () {
-      majConditionnels(fiche);
-      majGuides();
-    });
-  }
-  }
+function filtrerPresence(fiche) {
+  const select = fiche.querySelector('.select-presence');
+  if (!select) return;
 
+  select.querySelectorAll('option[data-versions]').forEach(opt => {
+    const versions = opt.getAttribute('data-versions').split(' ');
+    if (!versions.includes(version)) opt.remove();
+  });
+}
 
   // --- Affichage conditionnel repas / logement ---------------------
   function majConditionnels(fiche) {
@@ -216,6 +220,7 @@ function brancher(fiche) {
   if (select) {
     select.addEventListener('change', function () {
       majConditionnels(fiche);
+      majGuides();
     });
   }
 fiche.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]').forEach(input => {
@@ -300,7 +305,9 @@ function construirePayload() {
     data['p' + n + '_chanson1']      = get('chanson1');
     data['p' + n + '_chanson2']      = get('chanson2');
   });
-
+// --- Commentaire général de la famille ---
+  const champCommentaire = document.getElementById('commentaire');
+  data['commentaire'] = champCommentaire ? champCommentaire.value.trim() : '';
   return data;
 }
 let envoiEnCours = false;
