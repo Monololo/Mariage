@@ -36,9 +36,10 @@
   font-style: normal;
   font-display: swap;
 }
+
 #bloc-commentaire textarea {
+  font-family: Georgia, 'Times New Roman', serif;
   width: 100%;
-  font-family: 'CaviarDreams';
   font-size: clamp(0.8rem, 2vw, 1.2rem);
   padding: 0.6em;
   border-radius: 8px;
@@ -53,16 +54,17 @@ body {
 header {
   text-align: center;
   font-family: 'iloveyou';
-  font-size: clamp(1.5rem, 4.5vw, 2.8rem);
+  font-size: clamp(1.2rem, 3.8vw, 2.5rem);
 }
 h1 {
   text-align: center;
   line-height: 1.2; /* réduit l'espace entre les lignes */
-  font-size: clamp(3rem, 9vw, 3.5rem);
+  font-size: clamp(2rem, 6vw, 2.2rem);
 }
-/* Police des questions */
+/* Questions et réponses : police classique */
 .question-label {
-  font-family: 'Georgia', serif;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: bold;
 }
 #form-container {
   max-width: 800px;
@@ -72,19 +74,19 @@ h1 {
 
 /* --- Sections générales (.cadre sert déjà de conteneur visuel) --- */
 .cadre h2 {
-  font-size: clamp(2rem, 6vw, 2.6rem);
+  font-family: 'CaviarDreams';
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
   margin-bottom: 20px;
   text-shadow: 0.5px 0.5px 0 rgba(0,0,0,0.2);
 }
 
-/* --- Fiche personne --- */
-.fiche-personne {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid #d8c9b8;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 25px;
-  position: relative;
+/* Fiche personne : CaviarDreams un peu plus petit */
+.fiche-numero {
+  font-family: 'CaviarDreams';
+  display: block;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
 }
 
 .fiche-numero {
@@ -120,13 +122,14 @@ h1 {
 .champ input,
 .champ select,
 .champ textarea {
+  font-family: Georgia, 'Times New Roman', serif;
   padding: 8px 10px;
   border: 1px solid #c9b8a8;
   border-radius: 4px;
-  font-family: inherit ;
   font-size: clamp(0.8rem, 2vw, 1.2rem);
   background: #fff;
 }
+
 
 /* --- Blocs conditionnels (repas / logement) --- */
 .conditionnel {
