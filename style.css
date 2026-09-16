@@ -38,7 +38,7 @@
 }
 
 #bloc-commentaire textarea {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: caviardreams;
   width: 100%;
   font-size: clamp(0.8rem, 2vw, 1.2rem);
   padding: 0.6em;
@@ -47,7 +47,7 @@
   resize: vertical;
 }
 body {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: caviardreams;
   text-align: justify;
   font-size: clamp(0.8rem, 2vw, 1.2rem);
 }
