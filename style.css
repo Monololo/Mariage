@@ -47,25 +47,18 @@
   resize: vertical;
 }
 body {
-  font-family: 'CaviarDreams';
+  font-family: Georgia, 'Times New Roman', serif;
   text-align: justify;
   font-size: clamp(0.8rem, 2vw, 1.2rem);
 }
-header {
-  text-align: center;
-  font-family: 'iloveyou';
-  font-size: clamp(1.2rem, 3.8vw, 2.5rem);
-}
+
 h1 {
+  font-family: 'iloveyou'; /* hérite du header, cohérent */
   text-align: center;
-  line-height: 1.2; /* réduit l'espace entre les lignes */
+  line-height: 1.2;
   font-size: clamp(2rem, 6vw, 2.2rem);
 }
-/* Questions et réponses : police classique */
-.question-label {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: bold;
-}
+
 #form-container {
   max-width: 800px;
   margin: 0 auto;
@@ -89,13 +82,6 @@ h1 {
   margin-bottom: 15px;
 }
 
-.fiche-numero {
-  display: block;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-}
-
 .btn-supprimer {
   position: absolute;
   top: 15px;
@@ -115,6 +101,7 @@ h1 {
 }
 
 .champ label {
+  font-family: Georgia, 'Times New Roman', serif;
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -202,14 +189,7 @@ h1 {
   #guide-pere  { left: calc(50% - 200px); }
   #guide-mere  { right: calc(50% - 200px);  }
   #guide-fils  { left: calc(50% - 200px); top: calc(50% + 180px); }
-  #guide-fille { right: calc(50% - 200px);top: calc(50% + 180px);}
-
-  /* Le formulaire passe au-dessus */
-  .container {
-    position: relative;
-    z-index: 10;
-  }
- 
+  #guide-fille { right: calc(50% - 200px);top: calc(50% + 180px); } 
 }
 /* --- Bouton d'envoi --- */
 #rsvp-form button[type="submit"] {
@@ -234,7 +214,6 @@ h1 {
   background: transparent;
 }
 
-#intro-screen,
 #form-container,
 #end-screen {
   text-align: center;

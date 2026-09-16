@@ -1,9 +1,3 @@
-// Récupère la version dans l'URL
-const urlParams = new URLSearchParams(window.location.search);
-const version = urlParams.get('v') || 'a'; // 'a' par défaut
-
-// Ajoute la version au formulaire
-document.body.setAttribute('data-version', version);
 // ===================================================================
 // ===== LOT 1 — MOTEUR DU FORMULAIRE (version clonage) ==============
 // ===================================================================
@@ -265,13 +259,10 @@ fiche.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]').forEach(input => 
           .forEach(c => c.disabled = true);
     });
   }
-
   function reactiverTout() {
     container.querySelectorAll('input, select, textarea')
              .forEach(c => c.disabled = false);
   }
-
-
   // --- Envoi --------------------------------------------------------
 function construirePayload() {
   const data = {};
@@ -310,55 +301,47 @@ function construirePayload() {
   data['commentaire'] = champCommentaire ? champCommentaire.value.trim() : '';
   return data;
 }
-let envoiEnCours = false;
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+  // --- Envoi en arrière-plan vers FormBold -------------------------
+  let envoiEnCours = false;
 
-  if (envoiEnCours) return;
-  envoiEnCours = true;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  const btnEnvoi = form.querySelector('button[type="submit"]');
-  const texteInitial = btnEnvoi ? btnEnvoi.textContent : '';
-  if (btnEnvoi) {
-    btnEnvoi.disabled = true;
-    btnEnvoi.textContent = 'Envoi en cours…';
-  }
+    if (envoiEnCours) return;
+    envoiEnCours = true;
 
-  desactiverMasques();
-/*
-   fetch(form.action, {
-    method: 'POST',
-    body: JSON.stringify(construirePayload()),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  .then(r => {
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    form.classList.add('hidden');
-    if (endScreen) endScreen.classList.remove('hidden');
-    lancerStroboscope();
-  })
-  .catch(err => {
-    envoiEnCours = false;
+    desactiverMasques();
+
+    const btnEnvoi = form.querySelector('button[type="submit"]');
+    const texteInitial = btnEnvoi ? btnEnvoi.textContent : '';
     if (btnEnvoi) {
-      btnEnvoi.disabled = false;
-      btnEnvoi.textContent = texteInitial;
+      btnEnvoi.disabled = true;
+      btnEnvoi.textContent = 'Envoi en cours…';
     }
-    reactiverTout();
-    console.error('Envoi échoué :', err);
-    alert("L'envoi a échoué. Vérifiez votre connexion et réessayez.");
-  });
-});
-*/
-  // ✅ Simulation temporaire (à retirer quand Formbold est réactivé)
-  form.classList.add('hidden');
-  if (endScreen) endScreen.classList.remove('hidden');
-  lancerStroboscope();
-});
 
-  // --- Création de symbole ------------------------------------------
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        form.classList.add('hidden');
+        if (endScreen) endScreen.classList.remove('hidden');
+        lancerStroboscope();
+      })
+      .catch(function (err) {
+        envoiEnCours = false;
+        if (btnEnvoi) {
+          btnEnvoi.disabled = false;
+          btnEnvoi.textContent = texteInitial;
+        }
+        reactiverTout();
+        console.error('Envoi échoué :', err);
+        alert("L'envoi a échoué. Vérifiez votre connexion et réessayez.");
+      });
+  });
+
 /* ===================================================================
  * FOND ANIMÉ — module isolé, décoratif et non interactif
  * =================================================================== */
@@ -398,7 +381,9 @@ form.addEventListener('submit', function (e) {
   document.addEventListener('visibilitychange', updateVisibility);
   updateVisibility();
 })();
-
+  // --- Report de la version dans le champ caché --------------------
+  const inputVersion = document.getElementById('input-version');
+  if (inputVersion) inputVersion.value = version;
   filtrerPresence(modele);
   brancher(modele);
   majConditionnels(modele);
