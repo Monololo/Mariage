@@ -101,7 +101,7 @@ h1 {
 }
 
 .champ label {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: CaviarDreams;
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -109,7 +109,7 @@ h1 {
 .champ input,
 .champ select,
 .champ textarea {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: CaviarDreams;
   padding: 8px 10px;
   border: 1px solid #c9b8a8;
   border-radius: 4px;
