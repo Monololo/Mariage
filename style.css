@@ -45,11 +45,14 @@
   border-radius: 8px;
   border: 1px solid #ccc;
   resize: vertical;
+  z-index: 10;
 }
+
 body {
   font-family: 'CaviarDreams';
   text-align: justify;
   font-size: clamp(0.8rem, 2vw, 1.2rem);
+  z-index: 10;
 }
 
 h1 {
@@ -57,12 +60,14 @@ h1 {
   text-align: center;
   line-height: 1.2;
   font-size: clamp(2rem, 6vw, 2.2rem);
+  z-index: 10;
 }
 
 #form-container {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
+  z-index: 10;
 }
 
 /* --- Sections générales (.cadre sert déjà de conteneur visuel) --- */
@@ -71,6 +76,7 @@ h1 {
   font-size: clamp(1.5rem, 5vw, 2.2rem);
   margin-bottom: 20px;
   text-shadow: 0.5px 0.5px 0 rgba(0,0,0,0.2);
+  z-index: 10;
 }
 
 /* Fiche personne : CaviarDreams un peu plus petit */
@@ -80,6 +86,7 @@ h1 {
   font-weight: bold;
   font-size: 1.3rem;
   margin-bottom: 15px;
+  z-index: 10;
 }
 
 .btn-supprimer {
@@ -91,6 +98,7 @@ h1 {
   font-size: 1.3rem;
   cursor: pointer;
   color: #a33;
+   z-index: 10;
 }
 
 /* --- Champs de formulaire --- */
@@ -98,16 +106,18 @@ h1 {
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
-   z-index: 10;
+  z-index: 10;
 }
 
 .champ label {
   font-family: 'CaviarDreams';
   margin-bottom: 5px;
   font-weight: bold;
+  z-index: 10;
 }
 
-.champ input,
+.champ input{   
+   z-index: 10;}
 .champ select,
 .champ textarea {
   font-family: 'CaviarDreams';
@@ -216,7 +226,10 @@ h1 {
   background: transparent;
 }
 
-#form-container,
+#form-container{
+    z-index: 10;
+},
+
 #end-screen {
   text-align: center;
 }
