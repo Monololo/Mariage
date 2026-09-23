@@ -166,7 +166,7 @@ function licorneChoisie(fiche) {
 
 function aquaponeyChoisi(fiche) {
   const scope = fiche || document;
-  const select = scope.querySelector('[id$="_genre"]'); // ou l'id concerné pour aquaponey
+  const select = scope.querySelector('.select-presence'); // ou l'id concerné pour aquaponey
   return select && select.value === 'absent';
 }
 
