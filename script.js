@@ -141,7 +141,7 @@ const ETATS_GUIDE = {
   defaut:  { pere: 'images/pereparici.png',   mere: 'images/mereparici.png' },
   licorne: { pere: 'images/perelicorne.png',  mere: 'images/merelicorne.png' },
   nain:    { pere: 'images/perenain.png',     mere: 'images/merenaine.png' },
-  regime:  { pere: 'images/enfantvegan.png',  mere: 'images/enfantvegan.png' },
+  regime:  { pere: 'images/fillevegan.png',  mere: 'images/filsvegan.png' },
   logement:{ pere: 'images/fillelogement.png', mere: 'images/filslogement.png' }, 
   aquaponey:  { pere: 'images/filleaquaponey.png',  mere: 'images/filsaquaponey.png' },
   chanson: { pere: 'images/peredanse.gif',    mere: 'images/chatclac.gif' }
