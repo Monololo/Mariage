@@ -181,7 +181,7 @@ function majGuides(fiche) {
   else if (moqueurActif)     etat = 'moqueur';
   else if (logementActif)    etat = 'logement';
   else if (chansonRemplie)   etat = 'chanson';
-  else if (aquaponeyChoisi(fiche))   etat = 'absent';
+  else if (aquaponeyChoisi(fiche))   etat = 'aquaponey';
   else if (nainChoisie(fiche))       etat = 'nain';
   else if (licorneChoisie(fiche))    etat = 'licorne';
 
