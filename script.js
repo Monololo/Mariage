@@ -142,11 +142,13 @@ const ETATS_GUIDE = {
   licorne: { pere: 'images/perelicorne.png',  mere: 'images/merelicorne.png' },
   nain:    { pere: 'images/perenain.png',     mere: 'images/merenaine.png' },
   regime:  { pere: 'images/enfantvegan.png',  mere: 'images/enfantvegan.png' },
+  logement:{ pere: 'images/fillelogement.png', mere: 'images/filslogement.png' }, 
   aquaponey:  { pere: 'images/filleaquaponey.png',  mere: 'images/filsaquaponey.png' },
   chanson: { pere: 'images/peredanse.gif',    mere: 'images/chatclac.gif' }
 };
 
 let regimeActif = false;
+let logementActif = false; 
 
 // Vrai des qu'au moins une fiche a le genre "licorne"
 function licorneChoisie() {
@@ -168,6 +170,7 @@ function majGuides() {
 
   let etat = 'defaut';
   if      (regimeActif)      etat = 'regime';
+  else if (logementActif)    etat = 'logement';  
   else if (chansonRemplie)   etat = 'chanson';
   else if (aquaponeyChoisi())   etat = 'aquaponey';
   else if (nainChoisie())    etat = 'nain';
@@ -187,16 +190,28 @@ function brancherGuide(fiche) {
   if (selectGenre) selectGenre.addEventListener('change', majGuides);
 
   const selectRegime = fiche.querySelector('[id$="_regime"]');
-  if (!selectRegime) return;
+  if (selectRegime) {                     // ← plus de "return"
+    selectRegime.addEventListener('focus', () => {
+      regimeActif = true;
+      majGuides();
+    });
+    selectRegime.addEventListener('blur', () => {
+      regimeActif = false;
+      majGuides();
+    });
+  }
 
-  selectRegime.addEventListener('focus', () => {
-    regimeActif = true;
-    majGuides();
-  });
-  selectRegime.addEventListener('blur', () => {
-    regimeActif = false;
-    majGuides();
-  });
+  const selectLogement = fiche.querySelector('[id$="_logement"]');
+  if (selectLogement) {
+    selectLogement.addEventListener('focus', () => {
+      logementActif = true;
+      majGuides();
+    });
+    selectLogement.addEventListener('blur', () => {
+      logementActif = false;
+      majGuides();
+    });
+  }
 }
 
 const champChanson  = document.getElementById('chanson');
