@@ -193,42 +193,6 @@ const guideFille = document.getElementById('guide-fille');
   if (guideFille) guideFille.classList.toggle('hidden', !enChanson);
 }
 
-function brancherGuide(fiche) {
-  const selectGenre = fiche.querySelector('[id$="_genre"]');
-  if (selectGenre) selectGenre.addEventListener('change', majGuides);
-
-  const selectRegime = fiche.querySelector('[id$="_regime"]');
-  if (selectRegime) {                     // ← plus de "return"
-    selectRegime.addEventListener('focus', () => {
-      regimeActif = true;
-      majGuides();
-    });
-    selectRegime.addEventListener('blur', () => {
-      regimeActif = false;
-      majGuides();
-    });
-  }
-
-  const selectLogement = fiche.querySelector('[id$="_logement"]');
-  if (selectLogement) {
-    selectLogement.addEventListener('focus', () => {
-      logementActif = true;
-      majGuides();
-    });
-    selectLogement.addEventListener('blur', () => {
-      logementActif = false;
-      majGuides();
-    });
-  }
-}
-
-const champChanson  = document.getElementById('chanson');
-const champChanson2 = document.getElementById('chanson2');
-
-[champChanson, champChanson2].forEach(champ => {
-  if (champ) champ.addEventListener('input', majGuides);
-});
-
 // --- Branchement des écouteurs sur une fiche ---------------------
 function brancher(fiche) {
   const selectGenre = fiche.querySelector('[id$="_genre"]');
@@ -248,12 +212,36 @@ function brancher(fiche) {
     });
   }
 
+  const selectRegime = fiche.querySelector('[id$="_regime"]');
+  if (selectRegime) {
+    selectRegime.addEventListener('focus', () => {
+      regimeActif = true;
+      majGuides(fiche);
+    });
+    selectRegime.addEventListener('blur', () => {
+      regimeActif = false;
+      majGuides(fiche);
+    });
+  }
+
+  const selectLogement = fiche.querySelector('[id$="_logement"]');
+  if (selectLogement) {
+    selectLogement.addEventListener('focus', () => {
+      logementActif = true;
+      majGuides(fiche);
+    });
+    selectLogement.addEventListener('blur', () => {
+      logementActif = false;
+      majGuides(fiche);
+    });
+  }
+
   const btnSup = fiche.querySelector('.btn-supprimer');
   if (btnSup) {
     btnSup.addEventListener('click', () => {
       fiche.remove();
       renumeroter();
-      majGuides(); // pas de fiche précise ici → recherche globale, comportement par défaut
+      majGuides();
     });
   }
 }
