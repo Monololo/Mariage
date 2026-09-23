@@ -47,7 +47,7 @@
   resize: vertical;
   z-index: 10;
 }
-.date {
+.entete .date {
   text-align: center;
 }
 body {
