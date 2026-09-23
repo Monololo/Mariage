@@ -138,43 +138,51 @@ const guidePere = document.getElementById('guide-pere');
 const guideMere = document.getElementById('guide-mere');
 
 const ETATS_GUIDE = {
-  defaut:  { pere: 'images/pereparici.png',   mere: 'images/mereparici.png' },
-  licorne: { pere: 'images/perelicorne.png',  mere: 'images/merelicorne.png' },
-  nain:    { pere: 'images/perenain.png',     mere: 'images/merenaine.png' },
-  regime:  { pere: 'images/fillevegan.png',  mere: 'images/filsvegan.png' },
-  logement:{ pere: 'images/fillelogement.png', mere: 'images/filslogement.png' }, 
-  aquaponey:  { pere: 'images/filleaquaponey.png',  mere: 'images/filsaquaponey.png' },
-  chanson: { pere: 'images/peredanse.gif',    mere: 'images/chatclac.gif' }
+  defaut:   { pere: 'images/pereparici.png',   mere: 'images/mereparici.png' },
+  licorne:  { pere: 'images/perelicorne.png',  mere: 'images/merelicorne.png' },
+  nain:     { pere: 'images/perenain.png',     mere: 'images/merenaine.png' },
+  regime:   { pere: 'images/fillevegan.png',  mere: 'images/filsvegan.png' },
+  logement: { pere: 'images/fillelogement.png', mere: 'images/filslogement.png' }, 
+  aquaponey:{ pere: 'images/filleaquaponey.png',  mere: 'images/filsaquaponey.png' },
+  moqueur:  { pere: 'images/fillemoqueur.png',  mere: 'images/filsmoqueur.png' },
+  chanson:  { pere: 'images/peredanse.gif',    mere: 'images/chatclac.gif' }
 };
 
 let regimeActif = false;
 let logementActif = false; 
+let moqueurActif = false;
 
-// Vrai des qu'au moins une fiche a le genre "licorne"
-function licorneChoisie() {
-  return Array.from(document.querySelectorAll('#personnes-container [id$="_genre"]'))
-              .some(select => select.value === 'licorne');
+function nainChoisie(fiche) {
+  const scope = fiche || document;
+  const select = scope.querySelector('[id$="_genre"]');
+  return select && select.value === 'nain';
 }
-function nainChoisie() {
-  return Array.from(document.querySelectorAll('#personnes-container [id$="_genre"]'))
-              .some(select => select.value === 'nain');
+
+function licorneChoisie(fiche) {
+  const scope = fiche || document;
+  const select = scope.querySelector('[id$="_genre"]');
+  return select && select.value === 'licorne';
 }
-function aquaponeyChoisi() {
-  return Array.from(document.querySelectorAll('.select-presence'))
-              .some(select => select.value === 'absent');
+
+function aquaponeyChoisi(fiche) {
+  const scope = fiche || document;
+  const select = scope.querySelector('[id$="_genre"]'); // ou l'id concerné pour aquaponey
+  return select && select.value === 'aquaponey';
 }
-function majGuides() {
+
+function majGuides(fiche) {
   const chansonRemplie = Array.from(
     document.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]')
   ).some(input => input.value.trim().length > 0);
 
   let etat = 'defaut';
   if      (regimeActif)      etat = 'regime';
-  else if (logementActif)    etat = 'logement';  
+  else if (moqueurActif)     etat = 'moqueur';
+  else if (logementActif)    etat = 'logement';
   else if (chansonRemplie)   etat = 'chanson';
-  else if (aquaponeyChoisi())   etat = 'aquaponey';
-  else if (nainChoisie())    etat = 'nain';
-  else if (licorneChoisie()) etat = 'licorne';
+  else if (aquaponeyChoisi(fiche))   etat = 'aquaponey';
+  else if (nainChoisie(fiche))       etat = 'nain';
+  else if (licorneChoisie(fiche))    etat = 'licorne';
 
   if (guidePere) guidePere.src = ETATS_GUIDE[etat].pere;
   if (guideMere) guideMere.src = ETATS_GUIDE[etat].mere;
@@ -223,48 +231,52 @@ const champChanson2 = document.getElementById('chanson2');
 
 // --- Branchement des écouteurs sur une fiche ---------------------
 function brancher(fiche) {
-  brancherGuide(fiche);
+  const selectGenre = fiche.querySelector('[id$="_genre"]');
+  if (selectGenre) {
+    selectGenre.addEventListener('change', () => majGuides(fiche));
+  }
+
+  fiche.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]').forEach(input => {
+    input.addEventListener('input', () => majGuides(fiche));
+  });
 
   const select = fiche.querySelector('.select-presence');
   if (select) {
     select.addEventListener('change', function () {
       majConditionnels(fiche);
-      majGuides();
+      majGuides(fiche);
     });
   }
-fiche.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]').forEach(input => {
-  input.addEventListener('input', majGuides);
-});
+
   const btnSup = fiche.querySelector('.btn-supprimer');
   if (btnSup) {
     btnSup.addEventListener('click', () => {
       fiche.remove();
       renumeroter();
-
-      majGuides(); // au cas où la fiche supprimée était la seule "licorne"
+      majGuides(); // pas de fiche précise ici → recherche globale, comportement par défaut
     });
   }
 }
 
   // --- Ajout d'une personne ----------------------------------------
-  btnAjouter.addEventListener('click', function () {
-    const total = container.querySelectorAll('.fiche-personne').length;
-    if (total >= MAX_PERSONNES) return;
+btnAjouter.addEventListener('click', function () {
+  const total = container.querySelectorAll('.fiche-personne').length;
+  if (total >= MAX_PERSONNES) return;
 
-    const nouvelle = gabarit.cloneNode(true);
+  const nouvelle = gabarit.cloneNode(true);
 
-    // On repart d'une fiche vierge
-    nouvelle.querySelectorAll('input').forEach(i => i.value = '');
-    nouvelle.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
-    nouvelle.querySelectorAll('.conditionnel').forEach(c => c.classList.add('hidden'));
+  // On repart d'une fiche vierge
+  nouvelle.querySelectorAll('input').forEach(i => i.value = '');
+  nouvelle.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+  nouvelle.querySelectorAll('.conditionnel').forEach(c => c.classList.add('hidden'));
 
-    filtrerPresence(nouvelle);
-    container.appendChild(nouvelle);
-    brancher(nouvelle);
-    renumeroter();
-
-    nouvelle.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
+  filtrerPresence(nouvelle);
+  container.appendChild(nouvelle);
+  brancher(nouvelle);
+  renumeroter();
+  majGuides(nouvelle); // ← recherche centrée sur la fiche qu'on vient d'ajouter
+  nouvelle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
 
 
   // --- Neutralisation des champs masqués avant envoi ---------------
