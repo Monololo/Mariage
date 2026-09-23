@@ -69,7 +69,9 @@ h1 {
   padding: 40px 20px;
   z-index: 10;
 }
-
+.date {
+  text-align: center;
+}
 /* --- Sections générales (.cadre sert déjà de conteneur visuel) --- */
 .cadre h2 {
   font-family: 'CaviarDreams';
