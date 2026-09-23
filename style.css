@@ -49,7 +49,7 @@
 }
 .entete .date {
   text-align: center;
-  font-size: clamp(2rem, 6vw, 2.2rem);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
 }
 body {
   font-family: 'CaviarDreams';

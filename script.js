@@ -167,12 +167,13 @@ function licorneChoisie(fiche) {
 function aquaponeyChoisi(fiche) {
   const scope = fiche || document;
   const select = scope.querySelector('[id$="_genre"]'); // ou l'id concerné pour aquaponey
-  return select && select.value === 'aquaponey';
+  return select && select.value === 'absent';
 }
 
 function majGuides(fiche) {
+  const scope = fiche || document;
   const chansonRemplie = Array.from(
-    document.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]')
+    scope.querySelectorAll('[id$="_chanson1"], [id$="_chanson2"]')
   ).some(input => input.value.trim().length > 0);
 
   let etat = 'defaut';
@@ -186,9 +187,9 @@ function majGuides(fiche) {
 
   if (guidePere) guidePere.src = ETATS_GUIDE[etat].pere;
   if (guideMere) guideMere.src = ETATS_GUIDE[etat].mere;
-const enChanson = (etat === 'chanson');
-const guideFils  = document.getElementById('guide-fils');
-const guideFille = document.getElementById('guide-fille');
+  const enChanson = (etat === 'chanson');
+  const guideFils  = document.getElementById('guide-fils');
+  const guideFille = document.getElementById('guide-fille');
   if (guideFils)  guideFils.classList.toggle('hidden', !enChanson);
   if (guideFille) guideFille.classList.toggle('hidden', !enChanson);
 }
