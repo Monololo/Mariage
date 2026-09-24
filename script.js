@@ -237,7 +237,7 @@ function brancher(fiche) {
       majGuides(fiche);
     });
   }
-
+}
   const btnSup = fiche.querySelector('.btn-supprimer');
 if (btnSup) {
   if (fiche.dataset.index === '1') {
