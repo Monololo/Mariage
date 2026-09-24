@@ -94,16 +94,22 @@ h1 {
   z-index: 10;
 }
 
+
 .btn-supprimer {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #d9534f;   /* rouge, à ajuster selon ta charte */
+  color: white;
   border: none;
-  font-size: 1.3rem;
+  border-radius: 6px;
   cursor: pointer;
-  color: #a33;
-   z-index: 10;
+  font-size: 1rem;
+}
+
+.btn-supprimer:hover {
+  background-color: #c9302c;
 }
 
 /* --- Champs de formulaire --- */
