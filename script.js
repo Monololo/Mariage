@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // On garde une copie propre de la fiche 1 AVANT toute saisie utilisateur
   const gabarit = modele.cloneNode(true);
+  brancher(modele); 
 
 
   // --- Filtrage des options selon la version -----------------------
@@ -238,7 +239,11 @@ function brancher(fiche) {
   }
 
   const btnSup = fiche.querySelector('.btn-supprimer');
-  if (btnSup) {
+if (btnSup) {
+  if (fiche.dataset.index === '1') {
+    // On cache le bouton sur la fiche 1, pas besoin de le supprimer
+    btnSup.style.display = 'none';
+  } else {
     btnSup.addEventListener('click', () => {
       fiche.remove();
       renumeroter();
@@ -317,7 +322,7 @@ function construirePayload() {
   data['commentaire'] = champCommentaire ? champCommentaire.value.trim() : '';
   return data;
 }
-  // --- Envoi en arrière-plan vers FormBold -------------------------
+  // --- Envoi en arrière-plan vers wb3form -------------------------
   let envoiEnCours = false;
 
   form.addEventListener('submit', function (e) {
